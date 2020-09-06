@@ -2,6 +2,8 @@ import React from 'react';
 import {blogPostFetch, blogPostUnload} from "../actions/actions";
 import {connect} from "react-redux";
 import {BlogPost} from "./BlogPost";
+import CommentListContainer from "./CommentListContainer";
+import {Spinner} from "./Spinner";
 
 const mapStateToProps = state => ({
     ...state.blogPost
@@ -18,13 +20,21 @@ class BlogPostContainer extends React.Component {
         setTimeout(() => this.props.blogPostFetch(this.props.match.params.id), 1000);
     }
 
-    componentWillMount() {
-        //this.props.blogPostUnload();
+    componentWillUnmount() {
+        this.props.blogPostUnload();
     }
 
     render() {
         const {isFetching, post} = this.props;
-        return (<BlogPost isFetching={isFetching} post={post}/>);
+        if (isFetching ) {
+            return (<Spinner />);
+        }
+        return (
+            <div>
+                <BlogPost post={post}/>
+                {post && <CommentListContainer blogPostId={this.props.match.params.id}/>}
+            </div>
+        );
     }
 }
 
