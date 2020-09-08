@@ -1,3 +1,4 @@
+
 import React from 'react';
 import {Link} from "react-router-dom";
 
@@ -27,6 +28,26 @@ export default class Header extends React.Component {
                     React Blog
                 </Link>
 
+                <ul className="navbar-nav mr-auto">
+                    {
+                        !isAuthenticated &&
+                        (
+                            <li className="nav-item">
+                                <Link to="/register" className="nav-link">Register</Link>
+                            </li>
+                        )
+                    }
+                    {
+                        isAuthenticated &&
+                        (
+                            <li className="nav-item">
+                                <Link to="/blog-post-form" className="nav-link">
+                                    Add New
+                                </Link>
+                            </li>
+                        )
+                    }
+                </ul>
 
                 <span className="navbar-text">
           {isAuthenticated ? this.renderUser() : <Link to="/login">Sign-in</Link>}

@@ -9,11 +9,12 @@ import rootReducer from "./reducer";
 import {Route, Router} from "react-router";
 import App from './components/App';
 import {logger} from "redux-logger";
-import thunk from "redux-thunk";
+import thunkMiddleware from "redux-thunk";
+import {tokenMiddleware} from "./middleware";
 
-const middlewares = [logger];
+const middlewares = [thunkMiddleware, tokenMiddleware];
 if(process.env.NODE_ENV === 'development'){
-    middlewares.push(logger, thunk);
+    middlewares.push(logger);
 }
 const store = createStore(
     rootReducer,

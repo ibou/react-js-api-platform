@@ -17,7 +17,7 @@ const mapDispatchToProps = {
 
 class BlogPostContainer extends React.Component {
     componentDidMount() {
-        setTimeout(() => this.props.blogPostFetch(this.props.match.params.id), 1000);
+      this.props.blogPostFetch(this.props.match.params.id);
     }
 
     componentWillUnmount() {
